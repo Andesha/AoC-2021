@@ -20,4 +20,3 @@ oxygen = life_support(content[:], max, '1')
 co2 = life_support(content[:], min, '0')
 print(f'Total Power Consumption: {int(gamma_buf, 2) * epsilon}')
 print(f'Life Support Rating: {oxygen * co2}')
-    
