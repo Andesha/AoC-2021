@@ -15,7 +15,7 @@ def life_support(words, method):
 
 with open('small_input.txt') as f:
     content = f.read().splitlines()
-gamma_buf = ''
+gamma_buf = '' # Below is the transpose of content list
 for word in map(list, zip(*[list(x) for x in content])):
     gamma_buf += max(set(word), key=word.count)
 epsilon = int(''.join(['1' if i == '0' else '0' for i in gamma_buf]), 2)
