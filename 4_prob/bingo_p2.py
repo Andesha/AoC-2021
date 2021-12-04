@@ -10,7 +10,6 @@ for l,r in zip(blanks, blanks[1:]):
     boards.append([[[x,False] for x in row.split()] for row in content[l+1:r]])
 
 for move in draw_order:
-    won = False
     for bid, board in enumerate(boards):
         for i,row in enumerate(board):
             for j,item in enumerate(row):
@@ -23,8 +22,7 @@ for move in draw_order:
             if (all([pair[1] for pair in row]) or
                     all([pair[1] for pair in board[mirror]])):
                 windices.append(bid)
-                won = True
-    if len(boards) == 1 and won:
+    if len(boards) == 1 and windices:
         break
     boards = [board for bid,board in enumerate(boards) if bid not in windices]
 
@@ -33,4 +31,4 @@ for i,row in enumerate(boards[0]):
     for j,item in enumerate(row):
         if not item[1]:
             accum += int(item[0])
-print(f'Winner score: {accum * int(move)}')
+print(f'Loser score: {accum * int(move)}')
