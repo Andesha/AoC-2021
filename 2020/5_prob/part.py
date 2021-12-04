@@ -1,5 +1,4 @@
 import sys
-import math
 
 def partition(ss, lower=0, upper=127):
     if lower == upper:
@@ -15,5 +14,6 @@ def partition(ss, lower=0, upper=127):
 
 with open(sys.argv[1]) as f:
     content = f.read().splitlines()
-seat_ids = map(lambda x: x[0]*8 + x[1], [partition(seat) for seat in content])
-print('Max seat ID: ', max(seat_ids))
+seat_ids = list(map(lambda x: x[0]*8 + x[1], [partition(seat) for seat in content]))
+missing = [ids for ids in range(min(seat_ids), max(seat_ids)) if ids not in seat_ids]
+print(f'Max seat ID: {max(seat_ids)}\nMissing seats in range: {missing}' )
