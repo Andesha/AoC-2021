@@ -18,12 +18,9 @@ for move in draw_order:
                 if move == item[0]:
                     board[i][j][1] = True
 
-        for row in board: # Win rows
-            if all([pair[1] for pair in row]):
-                windex = bid # Win cols is the transpose
-                wmove = move
-        for row in map(list, zip(*[list(x) for x in board])):
-            if all([pair[1] for pair in row]):
+        for mirror, row in enumerate(map(list, zip(*[list(x) for x in board]))): # Win rows
+            if (all([pair[1] for pair in row]) or
+                    all([pair[1] for pair in board[mirror]])):
                 windex = bid
                 wmove = move
 
