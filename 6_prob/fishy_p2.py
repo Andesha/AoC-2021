@@ -1,22 +1,15 @@
 import sys
 
 with open(sys.argv[1]) as f:
-    tank = [int(fi) for fi in f.read().splitlines()[0].split(',')]
+    content = [int(fi) for fi in f.read().splitlines()[0].split(',')]
 
-tank_frontier = {}
-for i in range(9):
-    tank_frontier[i] = tank.count(i)
-
+tank = {i:content.count(i) for i in range(9)}
 for step in range(256):
-    forward_spawn = tank_frontier[0]
-    new_frontier = {k:0 for k in range(0,9)}
+    new_tank = {k:0 for k in range(0,9)}
     for i in range(1,9):
-        new_frontier[i-1] = tank_frontier[i]
+        new_tank[i-1] = tank[i]
 
-    new_frontier[8] += forward_spawn
-    new_frontier[6] += forward_spawn
+    new_tank[8] += tank[0]; new_tank[6] += tank[0]
+    tank = new_tank
 
-    tank_frontier = new_frontier
-
-print(tank_frontier.values())
-print(sum(tank_frontier.values()))
+print('Total fishy: ', sum(tank.values()))
