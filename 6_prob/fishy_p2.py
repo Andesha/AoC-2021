@@ -1,6 +1,4 @@
-import sys
-
-with open(sys.argv[1]) as f:
+with open('full.txt') as f:
     content = [int(fi) for fi in f.read().splitlines()[0].split(',')]
 
 tank = {i:content.count(i) for i in range(9)}
