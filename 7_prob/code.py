@@ -3,16 +3,13 @@ import sys
 with open(sys.argv[1]) as f:
     content = [int(item) for item in f.read().splitlines()[0].split(',')]
 
-least = None
-move_to = -1
+least_fuel, best_move = None, -1
 for root in range(max(content)):
     accum = 0
     for crab in content:
-        for incr in range(abs(crab - move_to)+1):
-            accum += (incr)
-    if least == None or accum < least:
-        least = accum
-        move_to = root
+        interm = abs(crab - root) + 1
+        accum += (interm*(interm - 1)) // 2
+    if least_fuel == None or accum < least_fuel:
+        least_fuel = accum; best_move = root
 
-print(least)
-print(move_to)
+print(f'Move to: {best_move}\tFuel Cost: {least_fuel}')
