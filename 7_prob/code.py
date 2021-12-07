@@ -1,7 +1,5 @@
-import sys
-
-with open(sys.argv[1]) as f:
-    content = [int(item) for item in f.read().splitlines()[0].split(',')]
+with open('full.txt') as f:
+    content = [int(item) for item in f.read().split(',')]
 
 least_fuel, best_move = None, -1
 for root in range(max(content)):
