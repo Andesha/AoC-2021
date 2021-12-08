@@ -18,12 +18,10 @@ for left,right in content:
         if set(mapper[4]).issubset(set(word)):
             mapper[9] = word; left.remove(word)
     for word in left:
-        word_len = len(word)
-        if word_len == 6 and set(mapper[1]).issubset(set(word)):
+        if len(word) == 6 and set(mapper[1]).issubset(set(word)):
             mapper[0] = word; left.remove(word)
     for word in left:
-        word_len = len(word)
-        if word not in mapper.values() and word_len == 6:
+        if len(word) == 6:
             mapper[6] = word; left.remove(word)
     for word in left:
         if not set(word).issubset(set(mapper[9])):
@@ -31,9 +29,7 @@ for left,right in content:
     for word in left:
         if not set(word).issubset(set(mapper[6])):
             mapper[3] = word; left.remove(word)
-    for word in left:
-        if word not in mapper.values():
-            mapper[5] = word; left.remove(word)
+    mapper[5] = left[0] # Only one left
 
     flip_map = {''.join(sorted(v)):str(k) for k,v in mapper.items()}
     buffer = ''
