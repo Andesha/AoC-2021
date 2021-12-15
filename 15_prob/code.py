@@ -5,9 +5,11 @@ from collections import defaultdict
 with open(sys.argv[1]) as f:
     content = [list(x) for x in f.read().splitlines()]
 
-
 length = len(content)
-print(content[length - 1][length - 1])
+big_length = length * 5
+def get_risk(i, j):
+    risk = ((i // length) + (j // length) + int(content[i % length][j % length])) % 9
+    return 9 if risk == 0 else risk
 
 D = defaultdict(lambda: float('inf'))
 D[(0,0)] = 0
@@ -20,8 +22,10 @@ while not pq.empty():
     frontier.update(current_vertex)
 
     for neighbor in [(current_vertex[0]+1,current_vertex[1]), (current_vertex[0]-1,current_vertex[1]), (current_vertex[0],current_vertex[1]+1), (current_vertex[0],current_vertex[1]-1)]:
-        if (neighbor[0] >= 0 and neighbor[1] >= 0 and neighbor[0] < length and neighbor[1] < length):
-            distance = int(content[neighbor[0]][neighbor[1]])
+        # if (neighbor[0] >= 0 and neighbor[1] >= 0 and neighbor[0] < length and neighbor[1] < length):
+        if (neighbor[0] >= 0 and neighbor[1] >= 0 and neighbor[0] < big_length and neighbor[1] < big_length):
+            # distance = int(content[neighbor[0]][neighbor[1]])
+            distance = get_risk(neighbor[0], neighbor[1])
             if neighbor not in frontier:
                 old_cost = D[neighbor]
                 new_cost = D[current_vertex] + distance
@@ -29,4 +33,5 @@ while not pq.empty():
                     pq.put((new_cost, neighbor))
                     D[neighbor] = new_cost
 
-print('Top left to bottom right: ', D[(length - 1,length - 1)])
+# print('Top left to bottom right: ', D[(length - 1,length - 1)])
+print('Top left to bottom right: ', D[(big_length - 1, big_length - 1)])
