@@ -7,9 +7,12 @@ with open(sys.argv[1]) as f:
 
 length = len(content)
 big_length = length * 5
-def get_risk(i, j):
-    risk = ((i // length) + (j // length) + int(content[i % length][j % length])) % 9
-    return 9 if risk == 0 else risk
+def risk(i, j):
+    risk = (int(content[i % length][j % length]) + (i // length) + (j // length)) % 9
+    if risk == 0:
+        return 9
+    else:
+        return risk
 
 D = defaultdict(lambda: float('inf'))
 D[(0,0)] = 0
@@ -25,7 +28,7 @@ while not pq.empty():
         # if (neighbor[0] >= 0 and neighbor[1] >= 0 and neighbor[0] < length and neighbor[1] < length):
         if (neighbor[0] >= 0 and neighbor[1] >= 0 and neighbor[0] < big_length and neighbor[1] < big_length):
             # distance = int(content[neighbor[0]][neighbor[1]])
-            distance = get_risk(neighbor[0], neighbor[1])
+            distance = risk(neighbor[0], neighbor[1])
             if neighbor not in frontier:
                 old_cost = D[neighbor]
                 new_cost = D[current_vertex] + distance
